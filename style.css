@@ -16,6 +16,7 @@ body {
   max-width: 600px;
   margin: auto;
   position: relative;
+  overflow: hidden;
 }
 
 .emoji {
@@ -46,6 +47,7 @@ h1 {
 .no-btn {
   background-color: #dc3545;
   color: white;
+  position: relative;
 }
 
 .love-message {
@@ -57,13 +59,17 @@ h1 {
 .heart {
   position: absolute;
   font-size: 24px;
-  animation: float 2s linear forwards;
+  animation: float 2.5s ease-in forwards;
   pointer-events: none;
 }
 
 @keyframes float {
-  to {
-    transform: translateY(-200px);
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) scale(1.5);
     opacity: 0;
   }
 }
