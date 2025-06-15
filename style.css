@@ -1,141 +1,104 @@
-/* Temel Stil */
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: linear-gradient(45deg, #2a0a42, #1a1a1a);
-    min-height: 100vh;
-    overflow-x: hidden;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-    line-height: 1.6;
-}
-
-/* Container */
-.container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: rgba(0, 0, 0, 0.85);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
-    position: relative;
-    z-index: 2;
-}
-
-/* Başlık */
-.header {
-    text-align: center;
-    margin-bottom: 2rem;
-    animation: glow 2s infinite alternate;
-}
-
-.heart-img {
-    width: 120px;
-    filter: drop-shadow(0 0 20px #ff69b4);
-    margin-bottom: 1rem;
-}
-
-/* İçerik */
-.content {
-    padding: 1rem;
-}
-
-.message-box {
-    background: rgba(255, 105, 180, 0.1);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-bottom: 2rem;
-    border: 2px solid #ff69b4;
-}
-
-.compliments {
-    display: grid;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.compliment-box {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1.5rem;
-    border-radius: 15px;
-    border-left: 5px solid #ff69b4;
-}
-
-ul {
-    padding-left: 1.5rem;
-    margin-top: 1rem;
-}
-
-li {
-    margin-bottom: 0.5rem;
-}
-
-/* Butonlar */
-.buttons {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
 }
 
-button {
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 150px;
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-button:first-child {
-    background: linear-gradient(45deg, #ff69b4, #ff1493);
-    color: white;
+.container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    animation: fadeIn 2s;
 }
 
-button:last-child {
-    background: linear-gradient(45deg, #666, #999);
-    color: white;
-}
-
-/* Animasyonlar */
-@keyframes glow {
-    from { text-shadow: 0 0 10px #ff69b4; }
-    to { text-shadow: 0 0 30px #ff69b4; }
-}
-
-.animate {
-    animation: fadeInUp 1s ease-out;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobil Uyum */
-@media (max-width: 768px) {
-    .container {
-        margin: 1rem;
-        padding: 1rem;
-    }
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
 
-    h1 {
-        font-size: 1.8rem;
-    }
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
 
-    .heart-img {
-        width: 80px;
-    }
+button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
 
-    button {
-        width: 100%;
-        font-size: 1rem;
-    }
+#evetBtn {
+    background: #4CAF50;
+    color: white;
+}
+
+#evetBtn:hover {
+    background: #45a049;
+    transform: scale(1.1);
+}
+
+#hayirBtn {
+    background: #f44336;
+    color: white;
+    position: relative;
+}
+
+#sonuc {
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ffeb3b;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
 }
