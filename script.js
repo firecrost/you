@@ -1,59 +1,40 @@
-// Animasyonlu Elementler
-document.querySelectorAll('.animate').forEach((el, index) => {
-    setTimeout(() => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-    }, index * 300);
+document.addEventListener('DOMContentLoaded', function() {
+    const evetBtn = document.getElementById('evetBtn');
+    const hayirBtn = document.getElementById('hayirBtn');
+    const sonuc = document.getElementById('sonuc');
+    const bgMusic = document.getElementById('bgMusic');
+    
+    // Müziği otomatik başlat (tarayıcılar genelde izin verir)
+    bgMusic.volume = 0.3;
+    bgMusic.play().catch(e => console.log("Otomatik çalma engellendi, kullanıcı etkileşimi gerekiyor."));
+    
+    // Hayır butonuna tıklanınca kaçsın
+    hayirBtn.addEventListener('mouseover', function() {
+        const randomX = Math.random() * (window.innerWidth - 100);
+        const randomY = Math.random() * (window.innerHeight - 50);
+        hayirBtn.style.position = 'absolute';
+        hayirBtn.style.left = randomX + 'px';
+        hayirBtn.style.top = randomY + 'px';
+    });
+    
+    // Evet butonuna basınca mutlu son
+    evetBtn.addEventListener('click', function() {
+        sonuc.innerHTML = "💖 YAŞASIN! ARTIK BİZ BİR ÇİFTİZ! 💖";
+        document.body.innerHTML += `<div class="hearts" id="hearts"></div>`;
+        
+        // Kalp animasyonu
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.getElementById('hearts').appendChild(heart);
+                
+                // Kalpleri temizle
+                setTimeout(() => heart.remove(), 5000);
+            }, i * 100);
+        }
+    });
 });
-
-// Hareketli "Belki" Butonu
-document.getElementById('hayirBtn').addEventListener('mouseover', function() {
-    this.style.transform = `translate(
-        ${Math.random() * 100 - 50}px,
-        ${Math.random() * 100 - 50}px
-    )`;
-    this.style.transition = 'all 0.3s ease';
-});
-
-// Cevap Verme
-function cevapVer(evet) {
-    const container = document.querySelector('.container');
-    if(evet) {
-        container.innerHTML = `
-            <div class="celebration">
-                <h2>🎉 İşte Bu Kadar 🎉</h2>
-                <p class="celebration-text">Artık resmen:<br>
-                <span class="couple-name">Yiğit❤️Melisa</span></p>
-                <div class="hearts"></div>
-                <p>Hayatının en güzel kararını verdin! 🥰</p>
-            </div>
-        `;
-        startFireworks();
-    } else {
-        container.innerHTML = `
-            <div class="sad-message">
-                <h2>😢 Kalbim Kırıldı Ama...</h2>
-                <p>Pes etmeyeceğim! Yeniden deneyeceğim! 💪</p>
-            </div>
-        `;
-    }
-}
-
-// Havai Fişek Efekti
-function startFireworks() {
-    for(let i=0; i<50; i++) {
-        setTimeout(() => {
-            const firework = document.createElement('div');
-            firework.style.cssText = `
-                position: fixed;
-                left: ${Math.random() * 100}vw;
-                top: ${Math.random() * 100}vh;
-                font-size: 30px;
-                animation: explode 1s forwards;
-            `;
-            firework.innerHTML = ['🎆', '🎇', '✨', '💥'][Math.floor(Math.random()*4)];
-            document.body.appendChild(firework);
-            setTimeout(() => firework.remove(), 1000);
-        }, i * 50);
-    }
-}
