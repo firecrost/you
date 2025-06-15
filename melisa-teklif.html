@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melisa'ya Soru</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #ffe6eb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #ff6b8b;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .yes-btn {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .yes-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .no-btn {
+            background: #f44336;
+            color: white;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+            position: relative;
+        }
+        
+        .heart {
+            position: absolute;
+            background-color: #ff6b8b;
+            width: 20px;
+            height: 20px;
+            transform: rotate(45deg);
+            animation: float 8s linear infinite;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b8b;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        
+        @keyframes float {
+            0% {
+                top: 110%;
+                left: 10%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: -10%;
+                left: 80%;
+                opacity: 0;
+            }
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal h2 {
+            color: #ff6b8b;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .modal p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Melisa, benimle çıkar mısın?</h1>
+        <div class="buttons">
+            <button id="yesBtn" class="btn yes-btn">
+                <i class="fas fa-heart"></i> Evet
+            </button>
+            <button id="noBtn" class="btn no-btn">
+                <i class="fas fa-heart-broken"></i> Hayır
+            </button>
+        </div>
+    </div>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle">Teşekkürler!</h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <script>
+        // Uçan kalpler oluştur
+        function createHearts() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    document.body.appendChild(heart);
+                    
+                    // Kalbi temizle
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 8000);
+                }, i * 300);
+            }
+        }
+        
+        // Sayfa yüklendiğinde kalpleri oluştur
+        window.onload = createHearts;
+        
+        // Modal işlevleri
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        function openModal(title, text) {
+            modalTitle.textContent = title;
+            modalText.textContent = text;
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+        
+        closeBtn.addEventListener('click', closeModal);
+        
+        // Buton işlevleri
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            openModal('Harika!', 'Evet dediğin için çok mutlu oldum! 💖 Seninle iletişime geçeceğim.');
+            sendResponse('Evet');
+            createHearts();
+        });
+        
+        document.getElementById('noBtn').addEventListener('click', function() {
+            openModal('Üzgünüm', 'Bu cevabı duymak beni üzdü... 😢 Belki bir gün fikrini değiştirirsin.');
+            sendResponse('Hayır');
+        });
+        
+        // Hayır butonunu kaçır
+        document.getElementById('noBtn').addEventListener('mouseover', function() {
+            this.style.position = 'absolute';
+            this.style.left = Math.random() * 80 + 10 + '%';
+            this.style.top = Math.random() * 80 + 10 + '%';
+        });
+        
+        // Cevabı gönder (simülasyon)
+        function sendResponse(response) {
+            // Gerçek uygulamada burada email gönderme kodu olacak
+            console.log(`Cevap gönderildi: ${response}`);
+            
+            // Email gönderme simülasyonu
+            const email = 'yigittr1922@gmail.com';
+            const subject = `Melisa'nın Cevabı: ${response}`;
+            const body = `Melisa "${response}" dedi. Tarih: ${new Date().toLocaleString()}`;
+            
+            // Gerçekte çalışacak kod:
+            // window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+        }
+    </script>
+</body>
+</html>
