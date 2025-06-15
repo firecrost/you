@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melisa'ya Özel</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #fff0f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(5px);
+        }
+        
+        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e91e63;
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .yes-btn {
+            background: #e91e63;
+            color: white;
+        }
+        
+        .no-btn {
+            background: #607d8b;
+            color: white;
+            position: relative;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #e91e63;
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; left: 10%; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; left: 90%; }
+        }
+        
+        .message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .message-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Melisa, benimle çıkar mısın? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn" class="btn yes-btn">Evet</button>
+            <button id="noBtn" class="btn no-btn">Hayır</button>
+        </div>
+    </div>
+    
+    <div id="message" class="message">
+        <div class="message-content">
+            <h2 id="messageTitle">Teşekkürler!</h2>
+            <p id="messageText"></p>
+        </div>
+    </div>
+
+    <script>
+        // Uçan kalpler
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        // Mesaj göster
+        function showMessage(title, text) {
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageText').textContent = text;
+            document.getElementById('message').style.display = 'flex';
+            
+            setTimeout(() => {
+                document.getElementById('message').style.display = 'none';
+            }, 2000);
+        }
+        
+        // Email gönder (FormSubmit kullanarak)
+        function sendEmail(response) {
+            const formData = new FormData();
+            formData.append('response', response);
+            formData.append('_replyto', 'yigittr1922@gmail.com');
+            formData.append('_subject', 'Melisa Cevap Verdi: ' + response);
+            
+            fetch('https://formsubmit.co/ajax/yigittr1922@gmail.com', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => console.log('Email gönderildi'))
+            .catch(error => console.log('Hata:', error));
+        }
+        
+        // Buton eventleri
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            showMessage('Harika!', 'Evet dediğin için çok mutluyum! ❤️');
+            sendEmail('Evet');
+            
+            // Kalp yağmuru
+            for(let i = 0; i < 20; i++) {
+                setTimeout(createHearts, i * 100);
+            }
+        });
+        
+        document.getElementById('noBtn').addEventListener('click', function() {
+            showMessage('Üzgünüm', 'Belki başka zaman...');
+            sendEmail('Hayır');
+        });
+        
+        // Hayır butonu kaçsın
+        document.getElementById('noBtn').addEventListener('mouseover', function() {
+            this.style.position = 'absolute';
+            this.style.left = Math.random() * 70 + 15 + '%';
+            this.style.top = Math.random() * 70 + 15 + '%';
+        });
+    </script>
+</body>
+</html>
