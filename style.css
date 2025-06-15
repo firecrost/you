@@ -1,0 +1,141 @@
+/* Temel Stil */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(45deg, #2a0a42, #1a1a1a);
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
+    position: relative;
+    z-index: 2;
+}
+
+/* Başlık */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: glow 2s infinite alternate;
+}
+
+.heart-img {
+    width: 120px;
+    filter: drop-shadow(0 0 20px #ff69b4);
+    margin-bottom: 1rem;
+}
+
+/* İçerik */
+.content {
+    padding: 1rem;
+}
+
+.message-box {
+    background: rgba(255, 105, 180, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border: 2px solid #ff69b4;
+}
+
+.compliments {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.compliment-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border-left: 5px solid #ff69b4;
+}
+
+ul {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Butonlar */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+button:first-child {
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: white;
+}
+
+button:last-child {
+    background: linear-gradient(45deg, #666, #999);
+    color: white;
+}
+
+/* Animasyonlar */
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ff69b4; }
+    to { text-shadow: 0 0 30px #ff69b4; }
+}
+
+.animate {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .heart-img {
+        width: 80px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 1rem;
+    }
+}
