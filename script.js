@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Elementleri seç
     const yesBtn = document.getElementById('yes-btn');
     const noBtn = document.getElementById('no-btn');
     const responseModal = document.getElementById('response-modal');
@@ -6,10 +7,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const responseTitle = document.getElementById('response-title');
     const closeModal = document.querySelector('.close-modal');
     const heartsContainer = document.querySelector('.hearts');
+    const recipientName = document.getElementById('recipient-name');
     
-    // Create floating hearts
-    for (let i = 0; i < 15; i++) {
-        createHeart();
+    // İsim sorma fonksiyonu
+    function askForName() {
+        let name = prompt("Lütfen isminizi yazın:", "Güzel İnsan");
+        if (!name || name.trim() === "") {
+            name = "Güzel İnsan";
+        }
+        recipientName.textContent = name;
+        return name;
+    }
+    
+    // Sayfa yüklendiğinde ismi sor
+    const userName = askForName();
+    
+    // Uçan kalpler oluştur
+    function createHearts() {
+        for (let i = 0; i < 15; i++) {
+            createHeart();
+        }
     }
     
     function createHeart() {
@@ -23,7 +40,10 @@ document.addEventListener('DOMContentLoaded', function() {
         heartsContainer.appendChild(heart);
     }
     
-    // Make No button run away
+    // Kalpleri başlat
+    createHearts();
+    
+    // Hayır butonu kaçsın
     noBtn.addEventListener('mouseover', function() {
         const maxX = window.innerWidth - noBtn.offsetWidth;
         const maxY = window.innerHeight - noBtn.offsetHeight;
@@ -35,54 +55,54 @@ document.addEventListener('DOMContentLoaded', function() {
         noBtn.style.left = randomX + 'px';
         noBtn.style.top = randomY + 'px';
         
-        // Shake animation
+        // Titreşim efekti
         noBtn.style.animation = 'shake 0.5s';
         setTimeout(() => {
             noBtn.style.animation = '';
         }, 500);
     });
     
-    // Yes button click
+    // Evet butonu işlevi
     yesBtn.addEventListener('click', function() {
-        showResponse('Evet dediğin için çok mutlu oldum! 💖 Yakında seninle iletişime geçeceğim.', 'Harika!');
-        sendEmail('Evet');
+        showResponse(`Harika ${userName}! 💖 Bu cevabı duyduğuma çok sevindim. Seninle iletişime geçeceğim.`, 'Çok Mutlu Oldum!');
+        sendEmail('Evet', userName);
     });
     
-    // No button click (if somehow clicked)
+    // Hayır butonu işlevi (eğer tıklanırsa)
     noBtn.addEventListener('click', function() {
-        showResponse('Üzgünüm bu cevabı duymak istemezdim. 😢 Belki bir gün fikrini değiştirirsin...', 'Üzgünüm');
-        sendEmail('Hayır');
+        showResponse(`${userName}, üzgünüm bu cevabı duymak istemezdim. 😢 Belki bir gün fikrini değiştirirsin...`, 'Üzgünüm');
+        sendEmail('Hayır', userName);
     });
     
-    // Close modal
-    closeModal.addEventListener('click', function() {
-        responseModal.classList.add('hidden');
-    });
-    
+    // Modal penceresi fonksiyonları
     function showResponse(text, title) {
-        responseText.textContent = text;
+        responseText.innerHTML = text;
         responseTitle.textContent = title;
         responseModal.classList.remove('hidden');
+        
+        // Modal dışına tıklanırsa kapat
+        responseModal.addEventListener('click', function(e) {
+            if (e.target === responseModal) {
+                closeResponseModal();
+            }
+        });
     }
     
-    function sendEmail(response) {
-        // In a real implementation, you would use a server-side script or email service
-        // This is just a simulation
-        console.log(`Email gönderildi: Kullanıcı ${response} dedi.`);
+    function closeResponseModal() {
+        responseModal.classList.add('hidden');
+    }
+    
+    closeModal.addEventListener('click', closeResponseModal);
+    
+    // Email gönderme fonksiyonu (simülasyon)
+    function sendEmail(response, name) {
+        // Gerçek uygulamada burada bir backend servisi kullanılır
+        console.log(`Email gönderiliyor...`);
+        console.log(`Alıcı: yigittr1922@gmail.com`);
+        console.log(`Konu: Çıkma Teklifi Cevabı`);
+        console.log(`Mesaj: ${name} kişisi "${response}" yanıtını verdi.`);
         
-        // Simulate sending to yigittr1922@gmail.com
-        const email = 'yigittr1922@gmail.com';
-        const subject = 'Çıkma Teklifi Cevabı';
-        const body = `Kullanıcı "${response}" yanıtını verdi.`;
-        
-        // In a real app, you would use something like:
-        // window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-        
-        // For demonstration, we'll just log it
-        console.log(`To: ${email}\nSubject: ${subject}\nBody: ${body}`);
-        
-        // If you want to actually send emails, you would need a backend service
-        // Here's an example using FormSubmit (you would need to sign up at https://formsubmit.co/)
+        // Gerçek email gönderme için örnek kod (FormSubmit kullanımı)
         /*
         fetch('https://formsubmit.co/ajax/yigittr1922@gmail.com', {
             method: 'POST',
@@ -91,13 +111,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
+                name: name,
                 response: response,
-                _subject: subject
+                _subject: `Çıkma Teklifi Cevabı - ${response}`
             })
         })
         .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.log(error));
+        .then(data => console.log('Email gönderildi:', data))
+        .catch(error => console.error('Hata:', error));
         */
+        
+        // Alternatif olarak mailto linki
+        const subject = encodeURIComponent(`Çıkma Teklifi Cevabı - ${response}`);
+        const body = encodeURIComponent(`${name} kişisi "${response}" yanıtını verdi.\n\nTarih: ${new Date().toLocaleString()}`);
+        window.open(`mailto:yigittr1922@gmail.com?subject=${subject}&body=${body}`);
     }
+    
+    // Sayfada herhangi bir yere tıklandığında yeni kalp oluştur
+    document.addEventListener('click', function(e) {
+        if (e.target !== noBtn && e.target !== yesBtn) {
+            createHeart();
+        }
+    });
 });
