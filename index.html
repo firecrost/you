@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=1024">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Benimle Çıkar Mısın?</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="mainContent">
     <div class="emoji">🥰</div>
     <h1>BENİMLE ÇIKAR MISIN?</h1>
 
-    <form id="yesForm">
-      <input type="hidden" name="_subject" value="Cevap Geldi!">
-      <input type="hidden" name="cevap" value="Evet">
+    <form id="yesForm" method="POST" action="https://formsubmit.co/yigittr1922@gmail.com">
+      <input type="hidden" name="_subject" value="EVET dedi!">
+      <input type="hidden" name="cevap" value="EVET">
       <button type="submit" class="yes-btn">EVET</button>
     </form>
 
-    <button class="no-btn" id="noBtn">HAYIR</button>
-
-    <div id="loveMessage" class="love-message"></div>
-    <div id="hearts-container"></div>
+    <form id="noForm" method="POST" action="https://formsubmit.co/yigittr1922@gmail.com">
+      <input type="hidden" name="_subject" value="HAYIR dedi :(">
+      <input type="hidden" name="cevap" value="HAYIR">
+      <button type="submit" class="no-btn" id="noBtn">HAYIR</button>
+    </form>
   </div>
+
+  <div class="hearts" id="heartsContainer"></div>
 
   <script src="script.js"></script>
 </body>
