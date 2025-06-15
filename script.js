@@ -3,38 +3,51 @@ document.addEventListener('DOMContentLoaded', function() {
     const hayirBtn = document.getElementById('hayirBtn');
     const sonuc = document.getElementById('sonuc');
     const bgMusic = document.getElementById('bgMusic');
-    
-    // Müziği otomatik başlat (tarayıcılar genelde izin verir)
-    bgMusic.volume = 0.3;
-    bgMusic.play().catch(e => console.log("Otomatik çalma engellendi, kullanıcı etkileşimi gerekiyor."));
-    
-    // Hayır butonuna tıklanınca kaçsın
-    hayirBtn.addEventListener('mouseover', function() {
-        const randomX = Math.random() * (window.innerWidth - 100);
-        const randomY = Math.random() * (window.innerHeight - 50);
-        hayirBtn.style.position = 'absolute';
-        hayirBtn.style.left = randomX + 'px';
-        hayirBtn.style.top = randomY + 'px';
+
+    // Müziği başlat (kullanıcı etkileşimi gerekiyor)
+    document.body.addEventListener('click', function() {
+        bgMusic.volume = 0.3;
+        bgMusic.play().catch(e => console.log("Müzik otomatik çalınmadı."));
     });
-    
-    // Evet butonuna basınca mutlu son
+
+    // Hayır butonunu uçur!
+    hayirBtn.addEventListener('mouseover', function() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        hayirBtn.style.left = x + 'px';
+        hayirBtn.style.top = y + 'px';
+        hayirBtn.style.transform = 'scale(1.2)';
+        setTimeout(() => hayirBtn.style.transform = 'scale(1)', 300);
+    });
+
+    // Evet butonuna basınca büyük sürpriz!
     evetBtn.addEventListener('click', function() {
-        sonuc.innerHTML = "💖 YAŞASIN! ARTIK BİZ BİR ÇİFTİZ! 💖";
+        sonuc.innerHTML = "💖 MELİSA, SENİ ÇOK SEVİYORUM! 💖";
         document.body.innerHTML += `<div class="hearts" id="hearts"></div>`;
-        
-        // Kalp animasyonu
-        for (let i = 0; i < 50; i++) {
+
+        // 100 kalp yağdır!
+        for (let i = 0; i < 100; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
-                heart.innerHTML = '❤️';
+                heart.innerHTML = ['❤️', '💖', '💘', '💝'][Math.floor(Math.random() * 4)];
                 heart.style.left = Math.random() * 100 + 'vw';
                 heart.style.animationDuration = Math.random() * 3 + 2 + 's';
                 document.getElementById('hearts').appendChild(heart);
-                
-                // Kalpleri temizle
-                setTimeout(() => heart.remove(), 5000);
             }, i * 100);
+        }
+
+        // Konfeti yağmuru
+        for (let i = 0; i < 200; i++) {
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = 
+                    ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'][Math.floor(Math.random() * 5)];
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }, i * 50);
         }
     });
 });
