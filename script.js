@@ -1,19 +1,10 @@
-let noClickCount = 0;
-const noBtn = document.getElementById("noBtn");
+document.getElementById("askForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  document.getElementById("messageBox").style.display = "block";
+  document.getElementById("messageBox").innerText = "Yaaa çok mutluyum! ❤️";
+});
 
-const noMessages = [
-  "Emin misin?",
-  "Bak son kez soruyorum...",
-  ""
-];
-
-noBtn.addEventListener("click", () => {
-  noClickCount++;
-  
-  if (noClickCount < 3) {
-    noBtn.innerText = noMessages[noClickCount - 1];
-    noBtn.style.transform = `translate(${Math.random()*100 - 50}px, ${Math.random()*100 - 50}px) scale(${1 - 0.2 * noClickCount})`;
-  } else {
-    noBtn.style.display = "none";
-  }
+document.getElementById("noBtn").addEventListener("click", function() {
+  document.getElementById("messageBox").style.display = "block";
+  document.getElementById("messageBox").innerText = ":( Peki, yine de seni sevmeye devam edeceğim...";
 });
