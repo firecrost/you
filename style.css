@@ -5,6 +5,7 @@ body {
   color: white;
   font-family: Arial, sans-serif;
   text-align: center;
+  overflow: hidden;
 }
 
 .container {
@@ -17,6 +18,7 @@ body {
   margin: auto;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
 .emoji {
@@ -52,24 +54,37 @@ h1 {
 
 .love-message {
   margin-top: 30px;
-  font-size: 32px;
+  font-size: 42px;
   color: #ff69b4;
+  font-weight: bold;
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  text-shadow: 0 0 10px #fff;
 }
 
 .heart {
   position: absolute;
-  font-size: 24px;
-  animation: float 2.5s ease-in forwards;
+  font-size: 32px;
+  animation: float 3s ease-in forwards;
   pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes float {
   0% {
-    transform: translateY(0) scale(1);
+    transform: translate(0, 0) scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateY(-200px) scale(1.5);
+    transform: translate(
+      calc(-100px + 200px * random()),
+      calc(-500px - 100px * random())
+    )
+    scale(1.5);
     opacity: 0;
   }
 }
