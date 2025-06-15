@@ -1,139 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SevgiliOlmaKartı</title>
+    <title>Melisa, Benimle Olur Musun? 💍</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f5e6f0;
-            margin: 0;
-            font-family: 'Georgia', serif;
-        }
-
-        .card {
-            width: 600px;
-            height: 400px;
-            background: #ffe6f0;
-            border: 3px solid #ff99cc;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 230, 240, 0.8));
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            font-size: 32px;
-            color: #d81b60;
-            letter-spacing: 3px;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            margin: 40px 0 10px;
-        }
-
-        p {
-            font-size: 18px;
-            color: #c2185b;
-            line-height: 1.6;
-            font-style: italic;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .option {
-            position: absolute;
-            background: #fff0f5;
-            border: 2px dashed #ff80ab;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            color: #d81b60;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .option:hover {
-            background: #ffebee;
-            transform: scale(1.05);
-        }
-
-        .option:disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        .option.evet {
-            top: 0;
-            left: 0;
-            border-top-left-radius: 15px;
-            padding: 12px 40px;
-        }
-
-        .option.hayir {
-            top: 0;
-            right: 0;
-            border-top-right-radius: 15px;
-            padding: 12px 40px;
-        }
-
-        .option.dusunmek {
+        /* Müzik butonu */
+        #musicBtn {
+            position: fixed;
             bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70%;
-            border-radius: 15px;
-            padding: 12px 0;
-        }
-
-        @keyframes tear {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            50% { transform: translateY(15px) rotate(8deg); opacity: 0.6; }
-            100% { transform: translateY(60px) rotate(15deg); opacity: 0; display: none; }
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Merhaba Güzel Kız</h1>
-        <p>Güzelliğin ilk gördüğüm andan beri hayranınızım. Sizinle arkadaşlık kurmak istiyorum, kabul ederseniz (EVET) kısmını, kabul etmezseniz (HAYIR) kısmını veya kararsızsanız (DÜŞÜNMEK İSTİYORUM) kısmını koparıp kartı iade ediniz.</p>
-        <div class="option evet" onclick="selectOption('evet')">EVET</div>
-        <div class="option hayir" onclick="selectOption('hayir')">HAYIR</div>
-        <div class="option dusunmek" onclick="selectOption('dusunmek')">DÜŞÜNMEK İSTİYORUM</div>
+    <button id="musicBtn">🎵</button>
+    <div class="container">
+        <h1>💖 MELİSA, HAYATIMI ANLAMLANDIRIR MISIN? 💖</h1>
+        <p>Artık resmen seninle olmak istiyorum. Kabul eder misin?</p>
+        <div class="buttons">
+            <button id="evetBtn">EVET! 💍</button>
+            <button id="hayirBtn">Hayır... 😢</button>
+        </div>
+        <div id="sonuc"></div>
     </div>
-
-    <script>
-        function selectOption(option) {
-            const card = document.querySelector('.card');
-            const evetButton = document.querySelector('.option.evet');
-            const hayirButton = document.querySelector('.option.hayir');
-            const dusunmekButton = document.querySelector('.option.dusunmek');
-
-            if (option === 'evet') {
-                evetButton.style.animation = 'tear 1.2s forwards';
-                card.style.clipPath = 'polygon(110px 0, 100% 0, 100% 100%, 0 100%, 0 80px)';
-                setTimeout(() => alert("Harika! Benimle çıkmayı kabul ettiğin için çok mutluyum! ❤️"), 1200);
-            } else if (option === 'hayir') {
-                hayirButton.style.animation = 'tear 1.2s forwards';
-                card.style.clipPath = 'polygon(0 0, 390px 0, 100% 80px, 100% 100%, 0 100%)';
-                setTimeout(() => alert("Üzüldüm ama kararına saygı duyuyorum. Yine de teşekkür ederim! 😊"), 1200);
-            } else if (option === 'dusunmek') {
-                dusunmekButton.style.animation = 'tear 1.2s forwards';
-                card.style.clipPath = 'polygon(0 0, 100% 0, 100% 270px, 0 270px)';
-                setTimeout(() => alert("Tabii ki, düşünmek için zamanın olsun. Ne zaman istersen konuşabiliriz! 😊"), 1200);
-            }
-
-            evetButton.disabled = true;
-            hayirButton.disabled = true;
-            dusunmekButton.disabled = true;
-        }
-    </script>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+    <script src="script.js"></script>
 </body>
 </html>
