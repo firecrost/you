@@ -1,46 +1,55 @@
 body {
   margin: 0;
   padding: 0;
-  background: #1a1a1a;
+  background: linear-gradient(to right, #1a1a1a, #2c2c2c);
   color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-}
-
-.container {
+  font-family: 'Segoe UI', sans-serif;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.emoji {
-  font-size: 80px;
-  margin-bottom: 20px;
+.container {
+  background-color: #202020;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 0, 100, 0.4);
+  text-align: center;
+  width: 600px;
 }
 
 h1 {
-  font-size: 48px;
-  margin-bottom: 40px;
+  font-size: 42px;
+  margin-bottom: 30px;
 }
 
-.yes-btn, .no-btn {
+button {
   padding: 16px 32px;
+  margin: 10px;
   font-size: 24px;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  margin: 10px;
-  transition: 0.3s;
+  transition: transform 0.2s ease;
 }
 
-.yes-btn {
-  background-color: #28a745;
+.yes {
+  background-color: #00c853;
   color: white;
 }
 
-.no-btn {
-  background-color: #dc3545;
+.no {
+  background-color: #ff1744;
   color: white;
+}
+
+.yes:hover, .no:hover {
+  transform: scale(1.08);
+}
+
+.message {
+  margin-top: 25px;
+  font-size: 20px;
+  display: none;
 }
