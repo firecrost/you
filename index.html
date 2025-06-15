@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Benimle Çıkar mısın?</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benimle Çıkar Mısın?</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <div class="emoji">🥰</div>
-    <h1 class="question">BENİMLE ÇIKAR MISIN?</h1>
-    
-    <button class="btn yes">Evet</button>
-    <button class="btn no">Hayır</button>
+    <h1>BENİMLE ÇIKAR MISIN?</h1>
+    <form id="yesForm" action="https://formsubmit.co/turkmenyigit509@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Evet Dedi!">
+      <input type="hidden" name="cevap" value="Evet">
+      <button type="submit" class="yes-btn">EVET</button>
+    </form>
+    <button class="no-btn" id="noBtn">HAYIR</button>
   </div>
 
   <script src="script.js"></script>
