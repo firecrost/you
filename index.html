@@ -2,20 +2,24 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1024">
   <title>Benimle Çıkar Mısın?</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <div class="emoji">🥰</div>
-    <h1>BENİMLE ÇIKAR MISIN?</h1>
-    <form id="yesForm" action="https://formsubmit.co/turkmenyigit509@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="Evet Dedi!">
+    <h1>Benimle Çıkar Mısın?</h1>
+
+    <form id="askForm">
+      <input type="hidden" name="_subject" value="Evet dedi!">
       <input type="hidden" name="cevap" value="Evet">
-      <button type="submit" class="yes-btn">EVET</button>
+      <button type="submit" class="yes">EVET</button>
     </form>
-    <button class="no-btn" id="noBtn">HAYIR</button>
+
+    <button class="no" id="noBtn">HAYIR</button>
+
+    <div class="message" id="messageBox"></div>
   </div>
 
   <script src="script.js"></script>
