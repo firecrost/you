@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melisa'ya Soru</title>
+    <title>Melisa'ya Özel Soru</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: #ffe6eb;
+            background: #fff5f7;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,19 +18,28 @@
             height: 100vh;
             text-align: center;
             overflow: hidden;
+            background-image: url('https://i.pinimg.com/originals/8f/ba/cb/8fbacb5a5d5b15e21f5a5d5b5d5b5d5b.jpg');
+            background-size: cover;
+            background-position: center;
         }
         
         .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
             position: relative;
             z-index: 10;
         }
         
         h1 {
             font-family: 'Dancing Script', cursive;
-            color: #ff6b8b;
+            color: #e91e63;
             font-size: 2.5rem;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
         
         .buttons {
@@ -51,59 +60,39 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            position: relative;
         }
         
         .yes-btn {
-            background: #4CAF50;
+            background: linear-gradient(45deg, #e91e63, #ff4081);
             color: white;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
         }
         
         .yes-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
         }
         
         .no-btn {
-            background: #f44336;
+            background: linear-gradient(45deg, #9e9e9e, #607d8b);
             color: white;
-            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
-            position: relative;
+            box-shadow: 0 4px 15px rgba(96, 125, 139, 0.3);
         }
         
         .heart {
             position: absolute;
-            background-color: #ff6b8b;
-            width: 20px;
-            height: 20px;
-            transform: rotate(45deg);
+            color: #e91e63;
+            font-size: 20px;
             animation: float 8s linear infinite;
-        }
-        
-        .heart:before, .heart:after {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background-color: #ff6b8b;
-            border-radius: 50%;
-            position: absolute;
-        }
-        
-        .heart:before {
-            top: -10px;
-            left: 0;
-        }
-        
-        .heart:after {
-            top: 0;
-            left: -10px;
+            opacity: 0;
         }
         
         @keyframes float {
             0% {
-                top: 110%;
-                left: 10%;
+                transform: translateY(0) rotate(0deg);
                 opacity: 0;
+                left: 10%;
             }
             10% {
                 opacity: 1;
@@ -112,34 +101,34 @@
                 opacity: 1;
             }
             100% {
-                top: -10%;
-                left: 80%;
+                transform: translateY(-100vh) rotate(360deg);
                 opacity: 0;
+                left: 90%;
             }
         }
         
-        .modal {
+        .message {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 100;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.3s;
+            transition: all 0.5s;
         }
         
-        .modal.active {
+        .message.active {
             opacity: 1;
             pointer-events: all;
         }
         
-        .modal-content {
+        .message-content {
             background: white;
             padding: 30px;
             border-radius: 10px;
@@ -148,39 +137,30 @@
             text-align: center;
             position: relative;
             transform: translateY(-20px);
-            transition: all 0.3s;
+            transition: all 0.5s;
         }
         
-        .modal.active .modal-content {
+        .message.active .message-content {
             transform: translateY(0);
         }
         
-        .modal h2 {
-            color: #ff6b8b;
+        .message h2 {
+            color: #e91e63;
             font-family: 'Dancing Script', cursive;
             font-size: 2rem;
             margin-bottom: 15px;
         }
         
-        .modal p {
+        .message p {
             color: #555;
             font-size: 1.1rem;
             line-height: 1.6;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #888;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Melisa, benimle çıkar mısın?</h1>
+        <h1>Sevgili Melisa,<br>benimle çıkar mısın?</h1>
         <div class="buttons">
             <button id="yesBtn" class="btn yes-btn">
                 <i class="fas fa-heart"></i> Evet
@@ -191,11 +171,10 @@
         </div>
     </div>
     
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2 id="modalTitle">Teşekkürler!</h2>
-            <p id="modalText"></p>
+    <div id="message" class="message">
+        <div class="message-content">
+            <h2 id="messageTitle">Teşekkürler!</h2>
+            <p id="messageText"></p>
         </div>
     </div>
 
@@ -204,10 +183,12 @@
         function createHearts() {
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.classList.add('heart');
+                    const heart = document.createElement('i');
+                    heart.classList.add('fas', 'fa-heart', 'heart');
                     heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                    heart.style.animationDelay = (Math.random() * 2) + 's';
                     document.body.appendChild(heart);
                     
                     // Kalbi temizle
@@ -221,33 +202,46 @@
         // Sayfa yüklendiğinde kalpleri oluştur
         window.onload = createHearts;
         
-        // Modal işlevleri
-        const modal = document.getElementById('modal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalText = document.getElementById('modalText');
-        const closeBtn = document.querySelector('.close-btn');
+        // Mesaj kutusu işlevleri
+        const message = document.getElementById('message');
+        const messageTitle = document.getElementById('messageTitle');
+        const messageText = document.getElementById('messageText');
         
-        function openModal(title, text) {
-            modalTitle.textContent = title;
-            modalText.textContent = text;
-            modal.classList.add('active');
+        function showMessage(title, text) {
+            messageTitle.textContent = title;
+            messageText.textContent = text;
+            message.classList.add('active');
+            
+            setTimeout(() => {
+                message.classList.remove('active');
+            }, 3000);
         }
         
-        function closeModal() {
-            modal.classList.remove('active');
+        // Form gönderme fonksiyonu
+        function sendResponse(response) {
+            const formData = new FormData();
+            formData.append('response', response);
+            formData.append('_replyto', 'yigittr1922@gmail.com');
+            formData.append('_subject', `Melisa'nın Cevabı: ${response}`);
+            
+            fetch('https://formsubmit.co/ajax/yigittr1922@gmail.com', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => console.log('Email gönderildi:', data))
+            .catch(error => console.error('Hata:', error));
         }
-        
-        closeBtn.addEventListener('click', closeModal);
         
         // Buton işlevleri
         document.getElementById('yesBtn').addEventListener('click', function() {
-            openModal('Harika!', 'Evet dediğin için çok mutlu oldum! 💖 Seninle iletişime geçeceğim.');
+            showMessage('Harika!', 'Evet dediğin için çok mutlu oldum! 💖');
             sendResponse('Evet');
             createHearts();
         });
         
         document.getElementById('noBtn').addEventListener('click', function() {
-            openModal('Üzgünüm', 'Bu cevabı duymak beni üzdü... 😢 Belki bir gün fikrini değiştirirsin.');
+            showMessage('Üzgünüm', 'Bu cevabı duymak beni üzdü... 😢');
             sendResponse('Hayır');
         });
         
@@ -257,20 +251,6 @@
             this.style.left = Math.random() * 80 + 10 + '%';
             this.style.top = Math.random() * 80 + 10 + '%';
         });
-        
-        // Cevabı gönder (simülasyon)
-        function sendResponse(response) {
-            // Gerçek uygulamada burada email gönderme kodu olacak
-            console.log(`Cevap gönderildi: ${response}`);
-            
-            // Email gönderme simülasyonu
-            const email = 'yigittr1922@gmail.com';
-            const subject = `Melisa'nın Cevabı: ${response}`;
-            const body = `Melisa "${response}" dedi. Tarih: ${new Date().toLocaleString()}`;
-            
-            // Gerçekte çalışacak kod:
-            // window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-        }
     </script>
 </body>
 </html>
