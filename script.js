@@ -32,7 +32,7 @@ yesForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const formData = new FormData(yesForm);
-  fetch("https://formsubmit.co/ajax/turkmenyigit509@gmail.com", {
+  fetch("https://formsubmit.co/ajax/yigittr1922@gmail.com", {
     method: "POST",
     body: formData,
   });
